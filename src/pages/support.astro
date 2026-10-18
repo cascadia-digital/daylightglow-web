@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SupportEmail from '../components/SupportEmail.astro';
+
+const questions = [
+    {
+        q: 'How do I add the widgets?',
+        a: '<strong>Home Screen:</strong> touch and hold an empty spot, tap <strong>Edit</strong>, then <strong>Add Widget</strong>, and search for Daylight. Swipe to pick a size.<br><strong>Lock Screen</strong> (with Plus): touch and hold the Lock Screen, tap <strong>Customize</strong>, then <strong>Lock Screen</strong>, and tap the area under the clock (or the date above it).',
+    },
+    {
+        q: 'What does “−3m 32s” mean?',
+        a: "Today has 3 minutes and 32 seconds less daylight than yesterday: the time from sunrise to sunset is that much shorter. After the shortest day in December (or June, south of the equator), the number turns positive and the minutes start coming back.",
+    },
+    {
+        q: "Why don't my sunrise and sunset times match another app exactly?",
+        a: 'Daylight Glow uses the same formulas as NOAA\'s solar calculator, which are accurate to about a minute. Other sources may round differently or use a slightly different definition of sunrise. Hills, buildings and trees can also hide the sun a little before the official sunset.',
+    },
+    {
+        q: 'Does it work without my location?',
+        a: 'Yes. Tap your place at the top of the app and choose <strong>Search for a City</strong>. Daylight Glow only needs a place to work out the sun; it never needs to follow you.',
+    },
+    {
+        q: 'I travelled and the times are wrong.',
+        a: 'If your place is set to <strong>Use My Location</strong>, it updates each time you open the app. Open Daylight Glow once in your new spot and the widgets will follow. If you picked a city, it stays on that city until you change it.',
+    },
+    {
+        q: 'What is golden hour?',
+        a: 'The soft, warm light just after sunrise and before sunset, when the sun is low. Daylight Glow counts it from when the sun is 6° above the horizon until it\'s 4° below. Golden hour is part of Plus.',
+    },
+    {
+        q: 'Why is my widget a little behind?',
+        a: 'iOS decides when widgets refresh. Daylight Glow plans its updates ahead, including right at sunrise, sunset and midnight, so it\'s usually on time. Opening the app refreshes the widgets right away.',
+    },
+    {
+        q: 'Near the North or South Pole, nothing shows.',
+        a: 'In midsummer and midwinter near the poles, the sun may not set or rise at all. Daylight Glow says so on the main screen instead of showing times.',
+    },
+];
+---
+
+<Layout title="Daylight Glow Support" description="Help with Daylight Glow's widgets, places, golden hour and sunrise and sunset times.">
+    <article class="mx-auto max-w-3xl px-6 pt-16 pb-24 sm:px-10 lg:pt-24">
+        <p class="text-xs font-semibold tracking-[0.14em] text-white/60 uppercase">Support</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-6xl">How can we help?</h1>
+
+        <div class="mt-10 space-y-3">
+            {questions.map(({ q, a }) => (
+                <details class="group rounded-3xl bg-white/[0.08] ring-1 ring-white/15 backdrop-blur-md">
+                    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 text-lg font-semibold tracking-tight [&::-webkit-details-marker]:hidden">
+                        {q}
+                        <svg viewBox="0 0 20 20" class="size-5 shrink-0 text-white/60 transition-transform group-open:rotate-45 motion-reduce:transition-none" aria-hidden="true">
+                            <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </summary>
+                    <div class="glow-prose -mt-2 px-6 pb-6">
+                        <p set:html={a} />
+                    </div>
+                </details>
+            ))}
+        </div>
+
+        <div class="glow-prose mt-14">
+            <h2>Still stuck?</h2>
+            <p>Email <SupportEmail /> and tell us what's happening. Your iPhone model and iOS version help. We usually reply within a couple of business days.</p>
+        </div>
+    </article>
+</Layout>

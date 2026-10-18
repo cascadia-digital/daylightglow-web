@@ -1,0 +1,146 @@
+/* Daylight Glow site: the same look as the iOS app. */
+@import "tailwindcss";
+
+@theme {
+    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    /* Dusk, the app's free theme. */
+    --color-night: #14112E;
+    --color-deep: #2E2170;
+    --color-glow-1: #E0607A;
+    --color-glow-2: #B8467A;
+    --color-glow-3: #5B34A0;
+    --color-glow-4: #3A66D0;
+    --color-glow-5: #F09A62;
+    --color-accent: #F09A62;
+    --color-accent-2: #E0607A;
+}
+
+/* The app's other themes, switched by the hidden theme picker (see ThemeSwitcher).
+   Dusk is the default above. */
+:root { --shade: 0.18; }
+[data-theme="midnight"] {
+    --color-night: #05060F; --color-deep: #0B1030;
+    --color-glow-1: #3B3F9E; --color-glow-2: #2A2370; --color-glow-3: #1A1F5C; --color-glow-4: #14204A; --color-glow-5: #4A3F9E;
+    --color-accent: #A9C1FF; --color-accent-2: #7C8CFF;
+    --shade: 0.1;
+}
+[data-theme="ember"] {
+    --color-night: #1A0708; --color-deep: #3D0E14;
+    --color-glow-1: #C24A32; --color-glow-2: #96302C; --color-glow-3: #7A1E24; --color-glow-4: #5C1730; --color-glow-5: #D98B48;
+    --color-accent: #F5C565; --color-accent-2: #EE9A52;
+    --shade: 0.2;
+}
+[data-theme="aurora"] {
+    --color-night: #04121F; --color-deep: #0B2E3F;
+    --color-glow-1: #27A57C; --color-glow-2: #5F47B0; --color-glow-3: #0F5C5A; --color-glow-4: #3B2C7A; --color-glow-5: #0A3D4A;
+    --color-accent: #9AF5D0; --color-accent-2: #45C99A;
+    --shade: 0.18;
+}
+[data-theme="tidepool"] {
+    --color-night: #061A26; --color-deep: #0E3A52;
+    --color-glow-1: #358F9C; --color-glow-2: #2C7A8C; --color-glow-3: #16627A; --color-glow-4: #1D4E6E; --color-glow-5: #6FB3A9;
+    --color-accent: #C9F2EA; --color-accent-2: #8FD3C9;
+    --shade: 0.22;
+}
+[data-theme="bloom"] {
+    --color-night: #2A1638; --color-deep: #5B2E6E;
+    --color-glow-1: #E08AA4; --color-glow-2: #C46E9A; --color-glow-3: #A4528D; --color-glow-4: #7E5AC9; --color-glow-5: #E8B08A;
+    --color-accent: #FFDDB8; --color-accent-2: #F7B2CB;
+    --shade: 0.24;
+}
+[data-theme="graphite"] {
+    --color-night: #0B0B0D; --color-deep: #1E1F24;
+    --color-glow-1: #6A6D78; --color-glow-2: #4A4D57; --color-glow-3: #3A3C44; --color-glow-4: #2A2C33; --color-glow-5: #7E818B;
+    --color-accent: #FFFFFF; --color-accent-2: #D3D6DD;
+    --shade: 0.16;
+}
+
+/* Colour changes glide rather than snap. */
+body, .glow-sky, .glow-blob, .glow-screen {
+    transition: background-color 0.8s ease, background 0.8s ease;
+}
+
+/* Drifting gradient blobs, the web version of the app's MeshGradient. */
+.glow-sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--color-night);
+}
+
+.glow-sky::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / var(--shade));
+    transition: background 0.8s ease;
+}
+
+.glow-blob {
+    position: absolute;
+    width: 60vmax;
+    height: 60vmax;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.8;
+    animation: glow-drift 28s ease-in-out infinite alternate;
+}
+
+.glow-blob:nth-child(1) { background: var(--color-glow-3); top: -20vmax; left: -15vmax; }
+.glow-blob:nth-child(2) { background: var(--color-glow-1); top: 20vh; left: 30vw; animation-duration: 34s; animation-delay: -8s; }
+.glow-blob:nth-child(3) { background: var(--color-glow-4); top: -10vmax; right: -25vmax; animation-duration: 40s; animation-delay: -16s; }
+.glow-blob:nth-child(4) { background: var(--color-glow-2); bottom: -35vmax; left: -10vmax; opacity: 0.7; animation-duration: 31s; animation-delay: -4s; }
+.glow-blob:nth-child(5) { background: var(--color-glow-5); bottom: -30vmax; right: -15vmax; opacity: 0.6; animation-duration: 37s; animation-delay: -20s; }
+
+@keyframes glow-drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(8vw, 6vh) scale(1.08); }
+    66%  { transform: translate(-6vw, 10vh) scale(0.94); }
+    100% { transform: translate(4vw, -6vh) scale(1.04); }
+}
+
+/* The mock phone screen gets its own, smaller sky. */
+.glow-screen {
+    background:
+        radial-gradient(60% 45% at 50% 48%, var(--color-glow-1) 0%, transparent 70%),
+        radial-gradient(55% 40% at 10% 85%, var(--color-glow-2) 0%, transparent 70%),
+        radial-gradient(50% 45% at 95% 55%, var(--color-glow-4) 0%, transparent 70%),
+        radial-gradient(60% 40% at 15% 30%, var(--color-glow-3) 0%, transparent 70%),
+        linear-gradient(180deg, var(--color-night), var(--color-deep) 40%, var(--color-night));
+}
+
+.glow-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.08);
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .glow-blob { animation: none; }
+    body, .glow-sky, .glow-sky::after, .glow-blob, .glow-screen { transition: none; }
+}
+
+/* The theme's accent fill. */
+.glow-met {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+    color: var(--color-night);
+}
+
+/* Long-form text on the privacy and support pages. */
+.glow-prose {
+    line-height: 1.7;
+    color: rgb(255 255 255 / 0.8);
+
+    & h2 { margin-top: 2.5rem; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; color: white; }
+    & h2:first-child { margin-top: 0; }
+    & p, & ul { margin-top: 0.75rem; }
+    & ul { padding-left: 1.25rem; list-style: disc; }
+    & li + li { margin-top: 0.5rem; }
+    & strong { color: white; font-weight: 600; }
+    & a { color: white; font-weight: 500; text-decoration: underline; text-decoration-color: rgb(255 255 255 / 0.3); text-underline-offset: 4px; }
+    & a:hover { text-decoration-color: white; }
+}

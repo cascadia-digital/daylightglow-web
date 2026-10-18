@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found · Daylight Glow" description="The sun has set on this page.">
+    <section class="mx-auto grid max-w-6xl items-center gap-14 px-6 pt-16 pb-28 sm:px-10 lg:grid-cols-[1fr_1.05fr] lg:pt-24">
+        <div>
+            <p class="text-xs font-semibold tracking-[0.14em] text-white/60 uppercase">Page not found</p>
+
+            <p class="mt-6 text-8xl leading-none font-semibold tracking-[-0.06em] tabular-nums sm:text-9xl">−4m 04s</p>
+            <p class="mt-2 text-xl font-medium text-white/80">less page than expected</p>
+
+            <p class="mt-6 max-w-sm text-lg leading-relaxed text-white/75">
+                The sun has set on this one. Don't worry, it comes back up.
+            </p>
+
+            <div class="mt-10 flex flex-wrap gap-3">
+                <a href="/" class="rounded-full bg-white px-6 py-3 font-semibold text-night hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                    Head back to daylight
+                </a>
+                <a href="/support" class="rounded-full px-6 py-3 font-semibold ring-1 ring-white/30 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                    Get help
+                </a>
+            </div>
+        </div>
+
+        {/* A sun slowly setting and rising again behind the horizon. */}
+        <div class="relative overflow-hidden rounded-[2rem] bg-white/[0.06] ring-1 ring-white/15 backdrop-blur-md" aria-hidden="true">
+            <svg viewBox="0 0 400 300" class="block w-full">
+                <defs>
+                    <clipPath id="sky"><rect width="400" height="210" /></clipPath>
+                    <radialGradient id="sun-glow">
+                        <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+                <g clip-path="url(#sky)">
+                    <g class="sun">
+                        <circle cx="200" cy="200" r="110" fill="url(#sun-glow)" />
+                        <circle cx="200" cy="200" r="44" fill="white" />
+                    </g>
+                </g>
+                <line x1="24" x2="376" y1="210" y2="210" stroke="white" stroke-width="3" stroke-linecap="round" />
+                <line x1="90" x2="310" y1="236" y2="236" stroke="white" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round" />
+                <line x1="150" x2="250" y1="260" y2="260" stroke="white" stroke-opacity="0.15" stroke-width="3" stroke-linecap="round" />
+                <text x="376" y="34" text-anchor="end" fill="white" fill-opacity="0.4" font-size="11" font-weight="600" letter-spacing="1.5">SUNSET IN 0 MIN</text>
+            </svg>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .sun {
+        animation: sunset 9s ease-in-out infinite;
+    }
+
+    @keyframes sunset {
+        0%, 15% { transform: translateY(-40px); }
+        55%, 70% { transform: translateY(110px); }
+        100% { transform: translateY(-40px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .sun { animation: none; transform: translateY(30px); }
+    }
+</style>

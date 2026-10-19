@@ -10,8 +10,8 @@ interface Props {
 const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const image = new URL('/icon.png', Astro.site);
-// TODO: add Daylight Glow as a site in Fathom and paste its ID here. Analytics stay off until then.
-const fathomSite = '';
+// Fathom site ID for daylightglow.app. Empty turns analytics off.
+const fathomSite = 'JANLVLFP';
 ---
 
 <!doctype html>

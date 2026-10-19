@@ -9,7 +9,7 @@ interface Props {
 
 const { class: className } = Astro.props;
 // This runs at build time only; the address itself never reaches the page.
-const address = 'support@daylightglow.app';
+const address = 'support@cascadia.digital';
 const reverse = (text: string) => [...text].reverse().join('');
 const [user, domain] = address.split('@').map(reverse);
 const encoded = btoa(reverse(address));
@@ -20,7 +20,7 @@ const encoded = btoa(reverse(address));
 </a>
 
 <style>
-    /* Reassembles "ppa.wolgthgilyad" + "@" + "troppus", then flips it to read normally. */
+    /* Reassembles "latigid.aidacsac" + "@" + "troppus", then flips it to read normally. */
     .support-email-text {
         direction: rtl;
         unicode-bidi: bidi-override;
